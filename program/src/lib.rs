@@ -17,7 +17,11 @@ pub(crate) mod processor;
 #[allow(missing_docs)]
 pub mod cpi;
 
+#[cfg(not(feature = "devnet"))]
 declare_id_with_central_state!("HP3D4D1ZCmohQGFVms2SS4LCANgJyksBf5s1F77FuFjZ");
+
+#[cfg(feature = "devnet")]
+declare_id_with_central_state!("Ga872GkshNeNMDag7m1Bn54dN3NiHksfqnN2pH6A1H9F");
 
 #[cfg(not(feature = "no-entrypoint"))]
 solana_security_txt::security_txt! {
