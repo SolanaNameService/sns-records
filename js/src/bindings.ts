@@ -19,6 +19,13 @@ export const SNS_RECORDS_ID = new PublicKey(
   "HP3D4D1ZCmohQGFVms2SS4LCANgJyksBf5s1F77FuFjZ"
 );
 
+
+/**
+ * Devnet program ID
+ */
+
+export const SNS_RECORD_ID_DEVNET = new PublicKey("Ga872GkshNeNMDag7m1Bn54dN3NiHksfqnN2pH6A1H9F")
+
 /**
  * Central State
  */
@@ -26,6 +33,11 @@ export const SNS_RECORDS_ID = new PublicKey(
 export const [CENTRAL_STATE_SNS_RECORDS] = PublicKey.findProgramAddressSync(
   [SNS_RECORDS_ID.toBuffer()],
   SNS_RECORDS_ID
+);
+
+export const [CENTRAL_STATE_SNS_RECORDS_DEVNET] = PublicKey.findProgramAddressSync(
+  [SNS_RECORD_ID_DEVNET.toBuffer()],
+  SNS_RECORD_ID_DEVNET
 );
 
 /**
