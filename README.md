@@ -15,7 +15,8 @@
 
 ## Program ID
 
-Mainnet program ID `HP3D4D1ZCmohQGFVms2SS4LCANgJyksBf5s1F77FuFjZ`
+- Mainnet program ID: `HP3D4D1ZCmohQGFVms2SS4LCANgJyksBf5s1F77FuFjZ`
+- Devnet program ID: `Ga872GkshNeNMDag7m1Bn54dN3NiHksfqnN2pH6A1H9F`
 
 ## Features
 

@@ -10,6 +10,7 @@ description = "Bindings and program code for the Solana Name Service Records pro
 [features]
 no-entrypoint = []
 test-bpf = []
+devnet = []
 
 [dependencies]
 solana-program = "1.16.0"
