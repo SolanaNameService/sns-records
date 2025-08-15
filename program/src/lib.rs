@@ -29,5 +29,5 @@ solana_security_txt::security_txt! {
     project_url: "https://sns.id",
     contacts: "email:contact@sns.id,link:https://twitter.com/sns",
     policy: "https://immunefi.com/bounty/sns",
-    preferred_languages: "en",
+    preferred_languages: "en"
 }
