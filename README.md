@@ -8,7 +8,7 @@
 
 <p align="center">
 <a href="https://twitter.com/sns">
-<img src="https://img.shields.io/twitter/url?label=SNSa&style=social&url=https%3A%2F%2Ftwitter.com%2Fsns">
+<img src="https://img.shields.io/twitter/url?label=SNS&style=social&url=https%3A%2F%2Ftwitter.com%2Fsns">
 </a>
 </p>
 <br />
