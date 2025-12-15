@@ -160,6 +160,11 @@ pub fn process(_program_id: &Pubkey, accounts: &[AccountInfo], params: Params) -
             header.right_of_association_validation.try_into()?,
         ) as usize);
 
+        // Minimally strip the XChain prefix
+        // We're not worried about collisions between different chains as these are vanishingly unlikely
+        // Unless the same private key is used across two different chains, in which case they're ownership-equivalent
+        let staleness_id = &staleness_id[staleness_id.len().checked_sub(32).unwrap_or_default()..];
+
         // Implicitly means that if the staleness is not verified it's
         // impossible to verify the RoA
         let staleness_id_array: [u8; 32] = staleness_id
