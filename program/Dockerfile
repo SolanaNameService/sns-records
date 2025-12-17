@@ -1,4 +1,4 @@
-FROM rust:1.73.0
+FROM rust:1.87.0
 
 ENV HOME="/nonroot"
 ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
@@ -13,11 +13,11 @@ RUN chown $HOST_UID:$HOST_GID ./workdir
 USER $HOST_UID:$HOST_GID
 
 # Install Solana tools.
-RUN sh -c "$(curl -sSfL https://release.solana.com/v1.17.15/install)"
+RUN sh -c "$(curl -sSfL https://release.anza.xyz/v2.3.7/install)"
 
 WORKDIR /nonroot
 
-RUN cargo new temp --lib
+RUN cargo new temp --edition 2021 --lib
 WORKDIR /nonroot/temp
 RUN printf "\n[lib]\ncrate-type=[\"cdylib\"]\n" >> Cargo.toml
 RUN cargo build-sbf

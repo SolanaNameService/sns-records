@@ -1,7 +1,7 @@
 [package]
 name = "sns-records"
 version = "0.2.0"
-edition = "2018"
+edition = "2021"
 license = "MIT"
 description = "Bindings and program code for the Solana Name Service Records protocol"
 repository = "https://github.com/SolanaNameService/sns-records"
@@ -30,7 +30,7 @@ spl-name-service = { version = "0.4.0", package = "spl-name-service-2", features
 ] }
 bytemuck = "1.13.1"
 
-time-macros = "<0.2.10"
+time-macros = "0.2.24"
 spl-token = { version = "7.0.0", features = ["no-entrypoint"] }
 hex = "0.4.3"
 solana-security-txt = "1.1.1"
