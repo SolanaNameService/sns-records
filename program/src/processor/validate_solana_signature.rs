@@ -26,7 +26,6 @@ use {
         program_error::ProgramError,
         program_pack::Pack,
         pubkey::Pubkey,
-        system_program,
     },
 };
 
@@ -82,7 +81,10 @@ impl<'a, 'b: 'a> Accounts<'a, AccountInfo<'b>> {
         };
 
         // Check keys
-        check_account_key(accounts.system_program, &system_program::ID)?;
+        check_account_key(
+            accounts.system_program,
+            &solana_system_interface::program::ID,
+        )?;
         check_account_key(accounts.spl_name_service_program, &spl_name_service::ID)?;
         check_account_key(accounts.central_state, &crate::central_state::KEY)?;
 

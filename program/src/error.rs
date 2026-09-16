@@ -1,8 +1,4 @@
-use {
-    num_derive::FromPrimitive,
-    solana_program::{decode_error::DecodeError, program_error::ProgramError},
-    thiserror::Error,
-};
+use {num_derive::FromPrimitive, solana_program::program_error::ProgramError, thiserror::Error};
 
 #[derive(Clone, Debug, Error, FromPrimitive)]
 pub enum SnsRecordsError {
@@ -37,11 +33,5 @@ pub enum SnsRecordsError {
 impl From<SnsRecordsError> for ProgramError {
     fn from(e: SnsRecordsError) -> Self {
         ProgramError::Custom(e as u32)
-    }
-}
-
-impl<T> DecodeError<T> for SnsRecordsError {
-    fn type_of() -> &'static str {
-        "SnsRecordsError"
     }
 }

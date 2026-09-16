@@ -6,10 +6,9 @@ use sns_records::{
     state::{record_header::RecordHeader, validation::Validation},
     utils::get_record_key_and_seeds,
 };
-use solana_program::{program_pack::Pack, system_program};
+use solana_program::program_pack::Pack;
 
 use {
-    borsh::ser::BorshSerialize,
     solana_program::pubkey::Pubkey,
     solana_program_test::{processor, ProgramTest},
     solana_sdk::{
@@ -31,13 +30,10 @@ async fn test_functional() {
 
     // Dummy keypair hardcoded for verification signatures to remain constant between tests
     // Associated pubkey: 9K6vPLB1DqgznyA3CBKeZ3GnD8Fqo8vcvx2Vxkk5uwqN
-    let alice = Keypair::from_bytes(&[
+    let alice = Keypair::new_from_array([
         42, 185, 156, 155, 46, 95, 163, 247, 19, 215, 251, 222, 166, 74, 236, 11, 8, 248, 245, 184,
-        40, 127, 236, 213, 229, 186, 144, 210, 89, 137, 115, 230, 123, 128, 164, 236, 16, 182, 19,
-        26, 12, 250, 103, 12, 136, 205, 152, 26, 138, 58, 99, 22, 166, 119, 18, 252, 89, 145, 162,
-        209, 100, 137, 15, 13,
-    ])
-    .unwrap();
+        40, 127, 236, 213, 229, 186, 144, 210, 89, 137, 115, 230,
+    ]);
     let parent_name = Pubkey::from_str("4kG2PyqixXVUb2CEeNt1ZcVUEoomNssMe8C4hf4Dguch").unwrap();
     let domain = Pubkey::from_str("7nf2Rq9DxwQCTg1ZmEEB5VUVAzq6tGpsYxqJ6JHqyoTQ").unwrap();
     // Record key 6DsYWo7KBqQCB1RkSLy7DXtMFN1f6jXKQUsByJ1JiB5g
@@ -78,7 +74,7 @@ async fn test_functional() {
         domain,
         Account {
             lamports: 100_000_000_000,
-            data: domain_record_header.try_to_vec().unwrap(),
+            data: borsh::to_vec(&domain_record_header).unwrap(),
             owner: spl_name_service::ID,
             ..Account::default()
         },
@@ -100,7 +96,7 @@ async fn test_functional() {
 
     let ix = sns_records::instruction::allocate_record(
         sns_records::instruction::allocate_record::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -143,7 +139,7 @@ async fn test_functional() {
     ////
     let ix = sns_records::instruction::delete_record(
         sns_records::instruction::delete_record::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -177,7 +173,7 @@ async fn test_functional() {
 
     let ix = sns_records::instruction::allocate_and_post_record(
         sns_records::instruction::allocate_and_post_record::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -223,7 +219,7 @@ async fn test_functional() {
 
     let ix = sns_records::instruction::edit_record(
         sns_records::instruction::edit_record::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -268,7 +264,7 @@ async fn test_functional() {
 
     let ix = sns_records::instruction::edit_record(
         sns_records::instruction::edit_record::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -311,7 +307,7 @@ async fn test_functional() {
 
     let ix = sns_records::instruction::validate_solana_signature(
         sns_records::instruction::validate_solana_signature::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -351,7 +347,7 @@ async fn test_functional() {
     ////
     let ix = sns_records::instruction::write_roa(
         sns_records::instruction::write_roa::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -392,7 +388,7 @@ async fn test_functional() {
     ////
     let ix = sns_records::instruction::validate_solana_signature(
         sns_records::instruction::validate_solana_signature::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &bob.pubkey(),
             record: &record_key,
@@ -432,7 +428,7 @@ async fn test_functional() {
     ////
     let ix = sns_records::instruction::unverify_roa(
         sns_records::instruction::unverify_roa::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &bob.pubkey(),
             record: &record_key,
@@ -473,7 +469,7 @@ async fn test_functional() {
 
     let ix = sns_records::instruction::edit_record(
         sns_records::instruction::edit_record::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -512,7 +508,7 @@ async fn test_functional() {
 
     let ix = sns_records::instruction::validate_solana_signature(
         sns_records::instruction::validate_solana_signature::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -552,7 +548,7 @@ async fn test_functional() {
     ];
     let ix = sns_records::instruction::validate_ethereum_signature(
         sns_records::instruction::validate_ethereum_signature::Accounts {
-            system_program: &system_program::ID,
+            system_program: &solana_system_interface::program::ID,
             spl_name_service_program: &spl_name_service::ID,
             fee_payer: &alice.pubkey(),
             record: &record_key,
@@ -613,7 +609,7 @@ async fn test_functional() {
             .unwrap(),
             validate_solana_signature(
                 validate_solana_signature::Accounts {
-                    system_program: &system_program::ID,
+                    system_program: &solana_system_interface::program::ID,
                     spl_name_service_program: &spl_name_service::ID,
                     fee_payer: &alice.pubkey(),
                     record: &record_key,

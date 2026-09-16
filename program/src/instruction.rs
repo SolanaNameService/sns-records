@@ -12,7 +12,7 @@ use {
 #[derive(BorshDeserialize, BorshSerialize, FromPrimitive)]
 pub enum ProgramInstruction {
     /// Allocate record account
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                       |
     /// | ------------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account        |
@@ -24,7 +24,7 @@ pub enum ProgramInstruction {
     /// | 6     | ❌        | ❌      | The SNS Record central state      |
     AllocateRecord,
     /// Allocate record account
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                           |
     /// | ----------------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account            |
@@ -36,7 +36,7 @@ pub enum ProgramInstruction {
     /// | 6     | ❌        | ❌      | The SNS Record central state          |
     AllocateAndPostRecord,
     /// Edit the record content
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                   |
     /// | --------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account    |
@@ -48,7 +48,7 @@ pub enum ProgramInstruction {
     /// | 6     | ❌        | ❌      |                               |
     EditRecord,
     /// Validate a RoA or Staleness via Solana signature
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                           |
     /// | ----------------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account            |
@@ -61,7 +61,7 @@ pub enum ProgramInstruction {
     /// | 7     | ✅        | ✅      | The RoA/Staleness verifier public key |
     ValidateSolanaSignature,
     /// Validate and ETH signature
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                           |
     /// | ----------------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account            |
@@ -73,7 +73,7 @@ pub enum ProgramInstruction {
     /// | 6     | ❌        | ❌      | The SNS Record central state          |
     ValidateEthereumSignature,
     /// Delete a record account
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                       |
     /// | ------------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account        |
@@ -85,7 +85,7 @@ pub enum ProgramInstruction {
     /// | 6     | ❌        | ❌      | The SNS Record central state      |
     DeleteRecord,
     /// Write a RoA in the record
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                           |
     /// | ----------------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account            |
@@ -97,7 +97,7 @@ pub enum ProgramInstruction {
     /// | 6     | ❌        | ❌      | The SNS Record central state          |
     WriteRoa,
     /// Unverify a RoA in the record
-    /// 
+    ///
     /// | Index | Writable | Signer | Description                           |
     /// | ----------------------------------------------------------------- |
     /// | 0     | ❌        | ❌      | The system program account            |

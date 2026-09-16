@@ -17,7 +17,7 @@ use {
         BorshSize, InstructionsAccount,
     },
     borsh::{BorshDeserialize, BorshSerialize},
-    solana_program::keccak::Hasher,
+    solana_program::keccak::hash as keccak_hash,
     solana_program::secp256k1_recover::secp256k1_recover,
     solana_program::{
         account_info::{next_account_info, AccountInfo},
@@ -25,7 +25,6 @@ use {
         program_error::ProgramError,
         program_pack::Pack,
         pubkey::Pubkey,
-        system_program,
     },
     spl_name_service::state::NameRecordHeader,
     std::convert::TryInto,
@@ -122,7 +121,10 @@ impl<'a, 'b: 'a> Accounts<'a, AccountInfo<'b>> {
         };
 
         // Check keys
-        check_account_key(accounts.system_program, &system_program::ID)?;
+        check_account_key(
+            accounts.system_program,
+            &solana_system_interface::program::ID,
+        )?;
         check_account_key(accounts.spl_name_service_program, &spl_name_service::ID)?;
         check_account_key(accounts.central_state, &crate::central_state::KEY)?;
 
@@ -180,9 +182,7 @@ pub fn process(_program_id: &Pubkey, accounts: &[AccountInfo], params: Params) -
             .checked_sub(27)
             .ok_or(SnsRecordsError::NumericalOverflow)?;
 
-        let mut hasher = Hasher::default();
-        hasher.hash(&buffer);
-        let hash = hasher.result();
+        let hash = keccak_hash(&buffer);
 
         let recovered_pubkey = secp256k1_recover(
             hash.as_ref(),
@@ -192,12 +192,13 @@ pub fn process(_program_id: &Pubkey, accounts: &[AccountInfo], params: Params) -
         .map_err(|_| SnsRecordsError::Secp256k1Recover)?;
 
         // Hash the public key using Keccak-256
-        let mut hasher = Hasher::default();
-        hasher.hash(&recovered_pubkey.0);
-        let output = hasher.result();
+        let output = keccak_hash(&recovered_pubkey.0);
 
         // Take the last 20 bytes of the hash to get the Ethereum address
-        let eth_address = output.0.get(12..).ok_or(SnsRecordsError::OutOfBound)?;
+        let eth_address = output
+            .as_ref()
+            .get(12..)
+            .ok_or(SnsRecordsError::OutOfBound)?;
 
         if eth_address != expected_pubkey {
             return Err(SnsRecordsError::EthPubkeyMismatch.into());
