@@ -1,6 +1,6 @@
 [package]
 name = "sns-records"
-version = "0.3.0-beta.0"
+version = "0.3.0"
 edition = "2021"
 license = "MIT"
 description = "Bindings and program code for the Solana Name Service Records protocol"
@@ -28,7 +28,7 @@ spl-token = { version = "9.0.0", features = ["no-entrypoint"] }
 hex = "0.4.3"
 solana-security-txt = "1.1.1"
 solana-system-interface = { version = "3.2.0", features = ["bincode"] }
-sns-warp-common = { version = "0.3.0-beta.0", features = [
+sns-warp-common = { version = "0.3.0", features = [
     "solana",
 ] }
 

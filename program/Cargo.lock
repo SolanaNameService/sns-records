@@ -4607,7 +4607,7 @@ dependencies = [
 
 [[package]]
 name = "sns-records"
-version = "0.3.0-beta.0"
+version = "0.3.0"
 dependencies = [
  "bonfida-utils",
  "borsh",
@@ -4629,9 +4629,9 @@ dependencies = [
 
 [[package]]
 name = "sns-warp-common"
-version = "0.3.0-beta.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1a5513a34381a1ab950b45a436e44e80782922787da407571fa0b4685e5deb0"
+checksum = "2fbe95682835f41b149cb5bd3731b6567628452d0485ffd1a0dc90a616088090"
 dependencies = [
  "borsh",
  "bytemuck",
